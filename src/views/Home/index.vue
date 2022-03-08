@@ -1,9 +1,8 @@
 <template>
-  <p>Home页面</p>
+  首页功能
+  <layout-footer></layout-footer>
 </template>
 
-<style scoped>
-p {
-  width: 100px;
-}
-</style>
+<script setup>
+import LayoutFooter from '@/components/LayoutFooter.vue';
+</script>
