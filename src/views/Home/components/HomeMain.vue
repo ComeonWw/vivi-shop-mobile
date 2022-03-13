@@ -35,13 +35,20 @@
         </van-swipe-item>
       </van-swipe>
     </van-notice-bar>
+    <!-- 区域4： 商品列表 -->
+    <product-list
+      :products-data="productsData"
+    ></product-list>
   </div>
 </template>
 
 <script setup>
+import ProductList from '@/components/ProductList.vue'
 import { ref, computed } from 'vue'
 import { getDefaultdata } from '@/api/index.js'
+import { getProductsData } from '@/api/product.js'
 
+// -----首页功能-----
 // 存储首页的所有数据（声明响应式数据）
 const indexData = ref({})
 
@@ -68,6 +75,25 @@ initIndexData()
  const newsData = computed(() => {
    return indexData.value.news?.default.newList.list
  })
+
+ // ------商品功能-----
+ // 存储商品列表数据
+ const productsData = ref([])
+
+ let page = 1
+ // 请求指定页得商品数据
+ const initProductsData = async () => {
+   const { data } = await getProductsData({
+     limit: 4,
+     page
+   })
+   if (data.status !== 200) { return }
+   // 请求每次得到的是新一段数据，需要将新数据添加到productsData中
+   productsData.value.push(...data.data)
+   // 变更页数，准备下次数据请求
+   page++
+ }
+ initProductsData()
 </script>
 
 <style lang="scss" scoped>

@@ -22,6 +22,7 @@
   padding-right: 10px;
   box-sizing: border-box;
   margin-top: 20px;
+  z-index: 1000;
 
   img {
     padding: 0 10px;
