@@ -21,6 +21,7 @@
   align-items: center;
   padding-right: 10px;
   box-sizing: border-box;
+  margin-top: 20px;
 
   img {
     padding: 0 10px;
@@ -32,7 +33,5 @@
     padding-left: 12px;
     margin-right: 10px;
   }
-
-
 }
 </style>

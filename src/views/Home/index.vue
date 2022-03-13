@@ -17,7 +17,6 @@ import LayoutFooter from '@/components/LayoutFooter.vue';
 
 <style lang="scss" scoped>
 .home-main {
-  background-color: #f7f7f7;
-  padding: 50px 0;
+  padding: 80px 0;
 }
 </style>
