@@ -1,5 +1,5 @@
 <template>
-  <div class="home-main">
+  <van-pull-refresh class="home-main" v-model="refreshing" @refresh="onRefresh">
     <!-- 区域1： 轮播图 -->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item
@@ -28,9 +28,9 @@
         :show-indicators="false"
       >
         <van-swipe-item
-         v-for="(item, index) in newsData"
-         :key="index"
-         v-text="item.chiild[0].val"
+        v-for="(item, index) in newsData"
+        :key="index"
+        v-text="item.chiild[0].val"
         >
         </van-swipe-item>
       </van-swipe>
@@ -46,7 +46,7 @@
         :products-data="productsData"
       ></product-list>
     </van-list>
-  </div>
+  </van-pull-refresh>
 </template>
 
 <script setup>
@@ -70,6 +70,8 @@ const initIndexData = async () => {
     return 
   }
   indexData.value = data.data.data
+  // 加载完数据之后，将Refreshing设置为false
+  refreshing.value = false
 }
 initIndexData()
 
@@ -110,6 +112,24 @@ initIndexData()
      finished.value = true
    }
  }
+
+ // -----下拉刷新功能-----
+ // 下拉刷新状态
+const refreshing = ref(false)
+const onRefresh = () => {
+  // 1: 清空数据
+  indexData.value = {}
+  productsData.value = []
+  // 2: 页面还原
+  page = 1
+  // 3 触底加载的状态还原
+  loading.value = false
+  finished.value = false
+  // 4：重新发送请求
+  initIndexData()
+  initProductsData()
+}
+
 </script>
 
 <style lang="scss" scoped>
