@@ -36,9 +36,16 @@
       </van-swipe>
     </van-notice-bar>
     <!-- 区域4： 商品列表 -->
-    <product-list
-      :products-data="productsData"
-    ></product-list>
+    <van-list
+      v-model:loading="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="initProductsData"
+    >
+      <product-list
+        :products-data="productsData"
+      ></product-list>
+    </van-list>
   </div>
 </template>
 
@@ -51,6 +58,10 @@ import { getProductsData } from '@/api/product.js'
 // -----首页功能-----
 // 存储首页的所有数据（声明响应式数据）
 const indexData = ref({})
+
+// 首页控制加载状态
+const loading = ref(false)
+const finished = ref(false)
 
 // 封装首页数据初始化功能
 const initIndexData = async () => {
@@ -92,8 +103,13 @@ initIndexData()
    productsData.value.push(...data.data)
    // 变更页数，准备下次数据请求
    page++
+   // 加载成功之后，需要将loading设置为false
+   loading.value = false
+   // 如果所有数据已经加载完毕，需要将finished设置为true
+   if (data.data.length < 4) {
+     finished.value = true
+   }
  }
- initProductsData()
 </script>
 
 <style lang="scss" scoped>
