@@ -18,6 +18,23 @@
         :text="item.info[0].value"
       />
     </van-grid>
+    <!-- 区域3：公告栏 -->
+    <van-notice-bar left-icon="volume-o" :scrollable="false">
+    <span>热点资讯公告：</span>
+      <van-swipe
+        vertical
+        class="notice-swipe"
+        :autoplay="3000"
+        :show-indicators="false"
+      >
+        <van-swipe-item
+         v-for="(item, index) in newsData"
+         :key="index"
+         v-text="item.chiild[0].val"
+        >
+        </van-swipe-item>
+      </van-swipe>
+    </van-notice-bar>
   </div>
 </template>
 
@@ -43,9 +60,13 @@ initIndexData()
  const swipeData = computed(() => {
    return indexData.value.swiperBg?.default.imgList.list
  })
- // 2. 菜单数据
+ // 2. 菜单列表数据
  const menusData = computed(() => {
    return indexData.value.menus?.default.imgList.list
+ })
+ // 3. 公告区域数据
+ const newsData = computed(() => {
+   return indexData.value.news?.default.newList.list
  })
 </script>
 
@@ -54,6 +75,18 @@ initIndexData()
   // 区域1：轮播图
   .my-swipe img {
     width: 100%;
+  }
+  // 区域3：公告区域
+  :deep(.van-notice-bar__content) {
+    display: flex;
+    align-items: center;
+  }
+  .van-notice-bar {
+    height: 70px;
+  }
+  .notice-swipe {
+    height: 40px;
+    line-height: 40px;
   }
 }
 </style>
