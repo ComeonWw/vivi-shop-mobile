@@ -9,6 +9,15 @@
         <img :src="item.img">
       </van-swipe-item>
     </van-swipe>
+    <!-- 区域2: 菜单列表 -->
+    <van-grid icon-size="40">
+      <van-grid-item
+        v-for="(item, index) in menusData"
+        :key="index"
+        :icon="item.img"
+        :text="item.info[0].value"
+      />
+    </van-grid>
   </div>
 </template>
 
@@ -33,6 +42,10 @@ initIndexData()
 // 1. 轮播图数据
  const swipeData = computed(() => {
    return indexData.value.swiperBg?.default.imgList.list
+ })
+ // 2. 菜单数据
+ const menusData = computed(() => {
+   return indexData.value.menus?.default.imgList.list
  })
 </script>
 
