@@ -4,7 +4,7 @@
     <!-- 商品 -->
     <van-tab title="商品">
       <!-- 1：轮播 -->
-      <van-swipe class="my-swipe" :autoplay="3000" height="375">
+      <van-swipe class="my-swipe" :autoplay="3000" height="200">
         <van-swipe-item
           v-for="(index, item) in sliderImage"
           :key="index"
@@ -12,6 +12,28 @@
           <img :src="item">
         </van-swipe-item>
       </van-swipe>
+      <!-- 2: 商品头部 -->
+      <van-cell
+        class="productHeader"
+        :border="false"
+      >
+        <!-- 插槽 -->
+        <template #title>
+          <div class="price">
+            <!-- 商品价格 -->
+            <span>￥{{ storeInfo?.price }}</span>
+            <!-- 分享按钮 -->
+            <van-icon name="share-o" class="share"></van-icon>
+          </div>
+          <!-- 商品标题 -->
+          <div class="title">{{ storeInfo?.store_name }}</div>
+        </template>
+        <template #label>
+          <span>原价：￥{{ storeInfo?.ot_price }}</span>
+          <span>库存: {{ storeInfo?.stock }}</span>
+          <span>销量：{{ storeInfo?.sales }}</span>
+        </template>
+      </van-cell>
     </van-tab>
     <van-tab title="评价">内容 2</van-tab>
     <van-tab title="推荐">内容 3</van-tab>
@@ -67,6 +89,10 @@ const sliderImage = computed(() => storeInfo.value?.slider_image)
   position: fixed !important;
 }
 
+.van-tabs {
+  background-color: #f2f2f2;
+}
+
 // 顶部tabs的标题部分
 :deep(.van-tabs__wrap) {
   position: fixed;
@@ -90,5 +116,33 @@ const sliderImage = computed(() => storeInfo.value?.slider_image)
 // 轮播图样式
 .van-swipe-item img {
   width: 375px;
+}
+
+// 商品信息区域
+.productHeader {
+  margin-bottom: 10px;
+
+  // title 插槽部分
+  .van-cell__title {
+    .price {
+      span {
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .share {
+        float: right;
+      }
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      margin: 5px 0 10px;
+    }
+  }
 }
 </style>
