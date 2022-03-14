@@ -34,6 +34,15 @@
           <span>销量：{{ storeInfo?.sales }}</span>
         </template>
       </van-cell>
+      <!-- 3: 商品规格选择区域 -->
+      <van-cell
+        class="sku_window"
+        is-link
+      >
+        <template #title>
+          <span>已选择</span>
+        </template>
+      </van-cell>
     </van-tab>
     <van-tab title="评价">内容 2</van-tab>
     <van-tab title="推荐">内容 3</van-tab>
@@ -91,58 +100,77 @@ const sliderImage = computed(() => storeInfo.value?.slider_image)
 
 .van-tabs {
   background-color: #f2f2f2;
-}
 
-// 顶部tabs的标题部分
-:deep(.van-tabs__wrap) {
-  position: fixed;
-  top: 0;
-  z-index: 999;
-  // 常规居中设置
-  left: 50%;
-  transform: translateX(-50%);
-  // 设置宽度
-  width: 80%;
-  .van-tab {
-    line-height: center !important;
+  // 顶部tabs的标题部分
+  :deep(.van-tabs__wrap) {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    // 常规居中设置
+    left: 50%;
+    transform: translateX(-50%);
+    // 设置宽度
+    width: 80%;
+    .van-tab {
+      line-height: center !important;
+    }
   }
-}
 
-// 底部主题内容容器
-:deep(.van-tabs__content) {
-  margin-top: 60px;
-}
+  // 底部主题内容容器
+  :deep(.van-tabs__content) {
+    margin-top: 60px;
+  }
 
-// 轮播图样式
-.van-swipe-item img {
-  width: 375px;
-}
+  // 轮播图样式
+  .van-swipe-item img {
+    width: 375px;
+  }
 
-// 商品信息区域
-.productHeader {
-  margin-bottom: 10px;
+  :deep(.van-cell) {
+    line-height: normal;
+  }
 
-  // title 插槽部分
-  .van-cell__title {
-    .price {
-      span {
-        font-size: 24px;
+
+  // 商品信息区域
+  :deep(.productHeader) {
+    margin-bottom: 10px;
+
+    // title 插槽部分
+    .van-cell__title {
+      .price {
+        span {
+          // 字体的设置不起作用怎么办呢
+          font-size: 20px;
+          font-weight: 900;
+        }
+
+        .share {
+          float: right;
+        }
+      }
+
+      .title {
+        font-size: 16px;
         font-weight: 700;
-      }
-
-      .share {
-        float: right;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        margin: 5px 0 10px;
       }
     }
+    // label 插槽
+    :deep(.van-cell__label) {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+    }  
+  }
 
-    .title {
-      font-size: 16px;
-      font-weight: 700;
-      display: -webkit-box;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      margin: 5px 0 10px;
-    }
+  // 商品规格区域
+  .sku_window {
+    margin-bottom: 10px;
   }
 }
+
+
 </style>
